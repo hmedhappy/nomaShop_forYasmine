@@ -1,0 +1,6 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+# dependencies
+/node_modules
+nodejs_dc.log
+nodejs_restclient.log
+resourceRegistry.log
