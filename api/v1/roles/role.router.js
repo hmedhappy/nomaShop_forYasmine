@@ -38,7 +38,13 @@ const createAccountLimiter = rateLimit({
  *    responses:
  *      200:
  *        description: A single role
- *
+ */
+
+router.get('/', /* checkToken, */ getRoles);
+
+/**
+ * @swagger
+ * /roles:
  *  post:                                       #CREATE role
  *    tags:
  *      - roles
@@ -125,7 +131,6 @@ const createAccountLimiter = rateLimit({
  *
  */
 
-router.get('/', /* checkToken, */ getRoles);
 /** POST /api/v1/users/register - Create new user */
 router.post('/', addRole);
 /** GET /api/v1/users/:id - Get user by id */
