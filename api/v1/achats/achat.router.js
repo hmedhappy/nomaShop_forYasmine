@@ -38,7 +38,12 @@ const createAccountLimiter = rateLimit({
  *    responses:
  *      200:
  *        description: A single achat
- *
+ */
+router.get('/', /* checkToken, */ getachats);
+
+/** 
+ * @swagger
+ * /achats:
  *  post:                                       #CREATE achat
  *    tags:
  *      - achats
@@ -55,8 +60,12 @@ const createAccountLimiter = rateLimit({
  *    responses:
  *      200:
  *        description: achat created
- *
- * /achats/{id}:                                 #UPDATE achat
+ */
+router.post('/', addachat);
+
+/** 
+ * @swagger
+ * /achats/{id}:                                 #GET SINGLE achat
  *  get:
  *    tags:
  *      - achats
@@ -75,8 +84,13 @@ const createAccountLimiter = rateLimit({
  *        description: achat Updated
  *        schema:
  *            $ref: '#/definitions/Addachats'
- *
- *  patch:
+ */
+router.get('/:id' /* , checkToken */, getachatById);
+
+/** 
+ * @swagger
+ * /achats/{id}:
+ *  patch:                                     #UPDATE achat
  *    tags:
  *      - achats
  *    summary: "Update Single achat"
@@ -100,9 +114,13 @@ const createAccountLimiter = rateLimit({
  *        description: achat Updated
  *        schema:
  *            $ref: '#/definitions/Addachats'
- *
- *
- *  delete:                                      #DELTE achat
+ */
+router.patch('/:id', updateachatById);
+
+/** 
+ * @swagger
+ * /achats/{id}:
+ *  delete:                                      #DELETE achat
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -124,15 +142,12 @@ const createAccountLimiter = rateLimit({
  *        description: achat Deleted
  *
  */
-
-router.get('/', /* checkToken, */ getachats);
-/** POST /api/v1/users/register - Create new user */
-router.post('/', addachat);
-/** GET /api/v1/users/:id - Get user by id */
-router.get('/:id' /* , checkToken */, getachatById);
-/** POST /api/v1/users/login - Authenticate user */
 router.delete('/:id', deleteachatById);
+
+
+/** POST /api/v1/users/register - Create new user */
+/** GET /api/v1/users/:id - Get user by id */
 /** POST /api/v1/users/login - Authenticate user */
-router.patch('/:id', updateachatById);
+/** POST /api/v1/users/login - Authenticate user */
 
 module.exports = router;
