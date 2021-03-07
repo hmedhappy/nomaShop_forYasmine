@@ -66,8 +66,8 @@ router.get('/', /* checkToken, */ getRoles);
 router.post('/', addRole);
 /**
  *  @swagger
- * /roles/{id}:                                 #GET SINGLE role
- *  get:
+ * /roles/{id}:                                 
+ *  get:                                            #GET SINGLE role
  *    tags:
  *      - roles
  *    summary: "Get Single role"
@@ -90,8 +90,8 @@ router.post('/', addRole);
 router.get('/:id' /* , checkToken */, getRoleById);
 /**
  * @swagger
- * /roles/{id}:                                 #GET SINGLE role
- *  patch:                                              
+ * /roles/{id}:                                
+ *  patch:                                           #UPDATE role                 
  *    tags:
  *      - roles
  *    summary: "Update Single role"
@@ -119,10 +119,8 @@ router.get('/:id' /* , checkToken */, getRoleById);
  *
  *
  */
-
-/** POST /api/v1/users/register - Create new user */
 router.patch('/:id', updateRoleById);
-/** GET /api/v1/users/:id - Get user by id */
+
 /** 
  * @swagger
  * /roles/{id}:                                 
@@ -148,6 +146,7 @@ router.patch('/:id', updateRoleById);
  *        description: role Deleted
  */
 router.delete('/:id', deleteRoleById);
+
 /** POST /api/v1/users/login - Authenticate user */
 
 module.exports = router;
