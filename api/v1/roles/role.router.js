@@ -21,6 +21,7 @@ const createAccountLimiter = rateLimit({
     'Too many accounts created from this IP, please try again after an hour',
 });
 
+
 /** POST /api/v1/users/register - Create new user */
 
 /**
@@ -61,8 +62,11 @@ router.get('/', /* checkToken, */ getRoles);
  *    responses:
  *      200:
  *        description: role created
- *
- * /roles/{id}:                                 #UPDATE role
+ */
+router.post('/', addRole);
+/**
+ *  @swagger
+ * /roles/{id}:                                 #GET SINGLE role
  *  get:
  *    tags:
  *      - roles
@@ -81,8 +85,13 @@ router.get('/', /* checkToken, */ getRoles);
  *        description: role Updated
  *        schema:
  *            $ref: '#/definitions/Addroles'
- *
- *  patch:
+ */
+
+router.get('/:id' /* , checkToken */, getRoleById);
+/**
+ * @swagger
+ * /roles/{id}:                                 #GET SINGLE role
+ *  patch:                                              
  *    tags:
  *      - roles
  *    summary: "Update Single role"
@@ -108,7 +117,16 @@ router.get('/', /* checkToken, */ getRoles);
  *            $ref: '#/definitions/Addroles'
  *
  *
- *  delete:                                      #DELTE role
+ *
+ */
+
+/** POST /api/v1/users/register - Create new user */
+router.patch('/:id', updateRoleById);
+/** GET /api/v1/users/:id - Get user by id */
+/** 
+ * @swagger
+ * /roles/{id}:                                 
+ *  delete:                                     #DELETE SINGLE role
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -128,16 +146,8 @@ router.get('/', /* checkToken, */ getRoles);
  *    responses:
  *      200:
  *        description: role Deleted
- *
  */
-
-/** POST /api/v1/users/register - Create new user */
-router.post('/', addRole);
-/** GET /api/v1/users/:id - Get user by id */
-router.get('/:id' /* , checkToken */, getRoleById);
-/** POST /api/v1/users/login - Authenticate user */
 router.delete('/:id', deleteRoleById);
 /** POST /api/v1/users/login - Authenticate user */
-router.patch('/:id', updateRoleById);
 
 module.exports = router;

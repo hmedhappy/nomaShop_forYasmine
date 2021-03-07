@@ -36,7 +36,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:5000/api/v1',
+        url: `http://localhost:${process.env.APP_PORT}/api/v1`,
       },
     ],
 
@@ -228,7 +228,7 @@ var allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:3002',
-  'http://localhost:5000',
+  `http://localhost:${process.env.APP_PORT}`,
 ];
 app.use(
   cors({
