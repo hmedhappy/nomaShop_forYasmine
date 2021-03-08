@@ -22,12 +22,12 @@ const createAccountLimiter = rateLimit({
 });
 
 
-/** POST /api/v1/users/register - Create new user */
+/** GET /api/v1/roles/- Get all roles */
 
 /**
  * @swagger
- * /roles:                                 #GET ALL roles
- *  get:
+ * /roles:                                 
+ *  get:                                     #GET ALL roles
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -40,8 +40,9 @@ const createAccountLimiter = rateLimit({
  *      200:
  *        description: A single role
  */
-
 router.get('/', /* checkToken, */ getRoles);
+
+/** POST /api/v1/roles/ - Create new role */
 
 /**
  * @swagger
@@ -64,6 +65,9 @@ router.get('/', /* checkToken, */ getRoles);
  *        description: role created
  */
 router.post('/', addRole);
+
+/** GET /api/v1/roles/:id - Get single role by id */
+
 /**
  *  @swagger
  * /roles/{id}:                                 
@@ -88,6 +92,9 @@ router.post('/', addRole);
  */
 
 router.get('/:id' /* , checkToken */, getRoleById);
+
+/** PATCH /api/v1/roles/:id - Update roles by id */
+
 /**
  * @swagger
  * /roles/{id}:                                
@@ -121,6 +128,8 @@ router.get('/:id' /* , checkToken */, getRoleById);
  */
 router.patch('/:id', updateRoleById);
 
+/** DELETE /api/v1/roles/:id - Delete role by id */
+
 /** 
  * @swagger
  * /roles/{id}:                                 
@@ -147,6 +156,6 @@ router.patch('/:id', updateRoleById);
  */
 router.delete('/:id', deleteRoleById);
 
-/** POST /api/v1/users/login - Authenticate user */
+
 
 module.exports = router;
