@@ -18,15 +18,16 @@ const createAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
   max: 5, // start blocking after 5 requests
   message:
-    'Too many accounts created from this IP, please try again after an hour',
+  'Too many accounts created from this IP, please try again after an hour',
 });
 
-/** POST /api/v1/users/register - Create new user */
+
+/** GET /api/v1/detailachats/ - Get all detailachats */
 
 /**
  * @swagger
- * /detailachats:                                 #GET ALL detailachats
- *  get:
+ * /detailachats:                                
+ *  get:                                          #GET ALL detailachats
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -38,8 +39,15 @@ const createAccountLimiter = rateLimit({
  *    responses:
  *      200:
  *        description: A single detailachat
- *
- *  post:                                       #CREATE detailachat
+ */
+router.get('/', /* checkToken, */ getdetailachats);
+
+/** POST /api/v1/detailachats/ - Create new detailachat */
+
+/** 
+ * @swagger
+ * /detailachats:
+ *  post:                                            #CREATE detailachat
  *    tags:
  *      - detailachats
  *    summary: "Create detailachat"
@@ -55,8 +63,14 @@ const createAccountLimiter = rateLimit({
  *    responses:
  *      200:
  *        description: detailachat created
- *
- * /detailachats/{id}:                                 #UPDATE detailachat
+ */
+router.post('/', adddetailachat);
+
+/** GET /api/v1/detailachats/:id - Get detailachat by id */
+
+/** 
+ * @swagger
+ * /detailachats/{id}:                                 #GET SINGLE detailachat
  *  get:
  *    tags:
  *      - detailachats
@@ -75,9 +89,16 @@ const createAccountLimiter = rateLimit({
  *        description: detailachat Updated
  *        schema:
  *            $ref: '#/definitions/Adddetailachats'
- *
- *  patch:
- *    tags:
+ */
+router.get('/:id' /* , checkToken */, getdetailachatById);
+
+/** PATCH /api/v1/detailachats/:id - Update detailachat by id */
+
+/** 
+ * @swagger
+ * /detailachats/{id}:      
+ *  patch:                                             #UPDATE detailachat
+ *    tags: 
  *      - detailachats
  *    summary: "Update Single detailachat"
  *    description: Update a single detailachat based on their data
@@ -100,9 +121,15 @@ const createAccountLimiter = rateLimit({
  *        description: detailachat Updated
  *        schema:
  *            $ref: '#/definitions/Adddetailachats'
- *
- *
- *  delete:                                      #DELTE detailachat
+ */
+router.patch('/:id', updatedetailachatById);
+
+/** DELETE /api/v1/detailachats/:id - Delete detailachat by id */
+
+/** 
+ * @swagger
+ * /detailachats/{id}:
+ *  delete:                                            #DELETE detailachat
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -124,15 +151,8 @@ const createAccountLimiter = rateLimit({
  *        description: detailachat Deleted
  *
  */
-
-router.get('/', /* checkToken, */ getdetailachats);
-/** POST /api/v1/users/register - Create new user */
-router.post('/', adddetailachat);
-/** GET /api/v1/users/:id - Get user by id */
-router.get('/:id' /* , checkToken */, getdetailachatById);
-/** POST /api/v1/users/login - Authenticate user */
 router.delete('/:id', deletedetailachatById);
-/** POST /api/v1/users/login - Authenticate user */
-router.patch('/:id', updatedetailachatById);
+
+
 
 module.exports = router;
