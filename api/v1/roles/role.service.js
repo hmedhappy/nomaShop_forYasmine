@@ -1,5 +1,4 @@
 const pool = require('../../../config/pool');
-var CurrentDateTime = require('../../../utils/CurrentDateTime');
 
 /**
  * Roles services

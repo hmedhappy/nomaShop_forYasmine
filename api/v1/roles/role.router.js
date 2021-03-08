@@ -7,23 +7,9 @@ const {
 } = require('./Role.controller');
 const { checkToken } = require('../../../auth/token_validation');
 const router = require('express').Router();
-const myMulter = require('../../../middleware/multer');
-const rateLimit = require('express-rate-limit');
-
-// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-// see https://expressjs.com/en/guide/behind-proxies.html
-// app.set('trust proxy', 1);
-
-const createAccountLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 5, // start blocking after 5 requests
-  message:
-    'Too many accounts created from this IP, please try again after an hour',
-});
 
 
 /** GET /api/v1/roles/- Get all roles */
-
 /**
  * @swagger
  * /roles:                                 
@@ -40,10 +26,9 @@ const createAccountLimiter = rateLimit({
  *      200:
  *        description: A single role
  */
-router.get('/', /* checkToken, */ getRoles);
+router.get('/', /* checkToken ,*/ getRoles);
 
 /** POST /api/v1/roles/ - Create new role */
-
 /**
  * @swagger
  * /roles:
@@ -67,7 +52,6 @@ router.get('/', /* checkToken, */ getRoles);
 router.post('/', addRole);
 
 /** GET /api/v1/roles/:id - Get single role by id */
-
 /**
  *  @swagger
  * /roles/{id}:                                 
@@ -88,13 +72,11 @@ router.post('/', addRole);
  *      200:
  *        description: role Updated
  *        schema:
- *            $ref: '#/definitions/Addroles'
+ *            $ref: '#/definitions/Addrole'
  */
+router.get('/:id', checkToken, getRoleById);
 
-router.get('/:id' /* , checkToken */, getRoleById);
-
-/** PATCH /api/v1/roles/:id - Update roles by id */
-
+/** PATCH /api/v1/roles/:id - Update role by id */
 /**
  * @swagger
  * /roles/{id}:                                
@@ -121,15 +103,11 @@ router.get('/:id' /* , checkToken */, getRoleById);
  *      200:
  *        description: role Updated
  *        schema:
- *            $ref: '#/definitions/Addroles'
- *
- *
- *
+ *            $ref: '#/definitions/Addrole'
  */
 router.patch('/:id', updateRoleById);
 
 /** DELETE /api/v1/roles/:id - Delete role by id */
-
 /** 
  * @swagger
  * /roles/{id}:                                 
@@ -149,7 +127,7 @@ router.patch('/:id', updateRoleById);
  *       required: true
  *       type: "string"
  *       schema:
- *          $ref: "#/definitions/Addroles"
+ *          $ref: "#/definitions/Addrole"
  *    responses:
  *      200:
  *        description: role Deleted

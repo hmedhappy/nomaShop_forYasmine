@@ -123,7 +123,7 @@ const swaggerOptions = {
           },
         },
       },
-      AddProduits: {
+      AddProduit: {
         type: 'object',
         properties: {
           code: {

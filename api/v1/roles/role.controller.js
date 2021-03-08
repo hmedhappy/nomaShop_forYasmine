@@ -1,4 +1,3 @@
-const { generateHTML } = require('swagger-ui-express');
 const {
   getRoles,
   getRoleById,
@@ -43,7 +42,7 @@ module.exports = {
         console.log(err);
         return res.json({
           success: 0,
-          data: !results ? 'Pas de record avec ces info' : 'Invalide Role',
+          data: !results ? 'Pas de résultat avec ces infos' : 'Role invalide',
         });
       }
       return res.json({
@@ -91,7 +90,7 @@ module.exports = {
       }
       return res.json({
         success: 1,
-        message: `record ${results}`,
+        message: `role ${results}`,
       });
     });
   },
