@@ -7,26 +7,12 @@ const {
 } = require('./commentaire.controller');
 const { checkToken } = require('../../../auth/token_validation');
 const router = require('express').Router();
-const myMulter = require('../../../middleware/multer');
-const rateLimit = require('express-rate-limit');
 
-// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-// see https://expressjs.com/en/guide/behind-proxies.html
-// app.set('trust proxy', 1);
-
-const createAccountLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 5, // start blocking after 5 requests
-  message:
-    'Too many accounts created from this IP, please try again after an hour',
-});
-
-/** POST /api/v1/users/register - Create new user */
-
+/** GET /api/v1/commentaires/- Get all commentaires */
 /**
  * @swagger
- * /commentaires:                                 #GET ALL commentaires
- *  get:
+ * /commentaires:
+ *  get:                                     #GET ALL commentaires
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -38,7 +24,13 @@ const createAccountLimiter = rateLimit({
  *    responses:
  *      200:
  *        description: A single commentaire
- *
+ */
+router.get('/', /* checkToken ,*/ getcommentaires);
+
+/** POST /api/v1/commentaires/ - Create new commentaire */
+/**
+ * @swagger
+ * /commentaires:
  *  post:                                       #CREATE commentaire
  *    tags:
  *      - commentaires
@@ -55,9 +47,14 @@ const createAccountLimiter = rateLimit({
  *    responses:
  *      200:
  *        description: commentaire created
- *
- * /commentaires/{id}:                                 #UPDATE commentaire
- *  get:
+ */
+router.post('/', addcommentaire);
+
+/** GET /api/v1/commentaires/:id - Get single commentaire by id */
+/**
+ *  @swagger
+ * /commentaires/{id}:
+ *  get:                                            #GET SINGLE commentaire
  *    tags:
  *      - commentaires
  *    summary: "Get Single commentaire"
@@ -74,9 +71,15 @@ const createAccountLimiter = rateLimit({
  *      200:
  *        description: commentaire Updated
  *        schema:
- *            $ref: '#/definitions/Addcommentaires'
- *
- *  patch:
+ *            $ref: '#/definitions/Addcommentaire'
+ */
+router.get('/:id', /* checkToken, */ getcommentaireById);
+
+/** PATCH /api/v1/commentaires/:id - Update commentaire by id */
+/**
+ * @swagger
+ * /commentaires/{id}:
+ *  patch:                                           #UPDATE commentaire
  *    tags:
  *      - commentaires
  *    summary: "Update Single commentaire"
@@ -99,10 +102,15 @@ const createAccountLimiter = rateLimit({
  *      200:
  *        description: commentaire Updated
  *        schema:
- *            $ref: '#/definitions/Addcommentaires'
- *
- *
- *  delete:                                      #DELTE commentaire
+ *            $ref: '#/definitions/Addcommentaire'
+ */
+router.patch('/:id', updatecommentaireById);
+
+/** DELETE /api/v1/commentaires/:id - Delete commentaire by id */
+/**
+ * @swagger
+ * /commentaires/{id}:
+ *  delete:                                     #DELETE SINGLE commentaire
  *    security:
  *      - bearerAuth: []
  *    tags:
@@ -118,21 +126,11 @@ const createAccountLimiter = rateLimit({
  *       required: true
  *       type: "string"
  *       schema:
- *          $ref: "#/definitions/Addcommentaires"
+ *          $ref: "#/definitions/Addcommentaire"
  *    responses:
  *      200:
  *        description: commentaire Deleted
- *
  */
-
-router.get('/', /* checkToken, */ getcommentaires);
-/** POST /api/v1/users/register - Create new user */
-router.post('/', addcommentaire);
-/** GET /api/v1/users/:id - Get user by id */
-router.get('/:id' /* , checkToken */, getcommentaireById);
-/** POST /api/v1/users/login - Authenticate user */
 router.delete('/:id', deletecommentaireById);
-/** POST /api/v1/users/login - Authenticate user */
-router.patch('/:id', updatecommentaireById);
 
 module.exports = router;
