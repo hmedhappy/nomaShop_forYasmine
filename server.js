@@ -92,23 +92,6 @@ const swaggerOptions = {
           },
         },
       },
-      AddAchat: {
-        type: 'object',
-        properties: {
-          code: {
-            type: 'string',
-          },
-          type_achat: {
-            type: 'string',
-          },
-          date_achat: {
-            type: 'Date',
-          },
-          mode_paiement: {
-            type: 'Enum',
-          },
-        },
-      },
       Addrole: {
         type: 'object',
         properties: {
@@ -123,7 +106,97 @@ const swaggerOptions = {
           },
         },
       },
-      AddProduit: {
+      Addfournisseur: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          libelle: {
+            type: 'string',
+          },
+        },
+      },
+      Addmarque: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          libelle: {
+            type: 'string',
+          },
+        },
+      },
+      Addpermission: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          action: {
+            type: 'string',
+          },
+          role_code: {
+            type: 'string',
+          },
+        },
+      },
+      Addgamme: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          libelle: {
+            type: 'string',
+          },
+        },
+      },
+      Addfamille: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          libelle: {
+            type: 'string',
+          },
+          couleurFamille: {
+            type: 'string',
+          },
+          gamme_code: {
+            type: 'string',
+          },
+        },
+      },
+      Addsousfamille: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          libelle: {
+            type: 'string',
+          },
+          couleurSousFamille: {
+            type: 'string',
+          },
+          prix_ht: {
+            type: 'float',
+          },
+          prix_ttc: {
+            type: 'float',
+          },
+          tva: {
+            type: 'float',
+          },
+          famille_code: {
+            type: 'string',
+          },
+        },
+      },
+      Addproduit: {
         type: 'object',
         properties: {
           code: {
@@ -132,7 +205,34 @@ const swaggerOptions = {
           code_a_barre: {
             type: 'string',
           },
+          image: {
+            type: 'string',
+          },
+          libelle: {
+            type: 'string',
+          },
           collisage: {
+            type: 'string',
+          },
+          ordre: {
+            type: 'string',
+          },
+          prix_achat_ht: {
+            type: 'float',
+          },
+          prix_achat_ttc: {
+            type: 'float',
+          },
+          prix_vente_ht: {
+            type: 'float',
+          },
+          prix_vente_ttc: {
+            type: 'float',
+          },
+          tva: {
+            type: 'float',
+          },
+          sousFamille_code: {
             type: 'string',
           },
           famille_code: {
@@ -144,45 +244,369 @@ const swaggerOptions = {
           gamme_code: {
             type: 'string',
           },
-          image: {
-            type: 'string',
-          },
-          libelle: {
-            type: 'string',
-          },
           marque_code: {
-            type: 'string',
-          },
-          ordre: {
-            type: 'string',
-          },
-          prix_achat_ht: {
-            type: 'string',
-          },
-          prix_achat_ttc: {
-            type: 'string',
-          },
-          prix_vente_ht: {
-            type: 'string',
-          },
-          prix_vente_ttc: {
-            type: 'string',
-          },
-          sousfamille_code: {
-            type: 'string',
-          },
-          tva: {
             type: 'string',
           },
         },
       },
-      AddMarque: {
+      Addgroupe: {
         type: 'object',
         properties: {
           code: {
             type: 'string',
           },
           libelle: {
+            type: 'string',
+          },
+          produit_code: {
+            type: 'string',
+          },
+        },
+      },
+      Addachat: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          type_achat: {
+            type: 'ENUM',
+          },
+          date_achat: {
+            type: 'Date',
+          },
+          mode_paiement: {
+            type: 'string',
+          },
+          montant_total_ht: {
+            type: 'float',
+          },
+          montant_total_ttc: {
+            type: 'float',
+          },
+          montant_total_tva: {
+            type: 'float',
+          },
+          net_a_payer_ht: {
+            type: 'float',
+          },
+          remise: {
+            type: 'float',
+          },
+          net_a_payer: {
+            type: 'float',
+          },
+          longitude_livraison: {
+            type: 'string',
+          },
+          latitude_livraison: {
+            type: 'string',
+          },
+          adresse_livraison: {
+            type: 'string',
+          },
+          date_prevue_livraison: {
+            type: 'Date',
+          },
+          commentaire: {
+            type: 'string',
+          },
+          annule: {
+            type: 'boolean',
+          },
+          user_code: {
+            type: 'string',
+          },
+          fournisseur_code: {
+            type: 'string',
+          },
+          grossiste_code: {
+            type: 'string',
+          },      
+        },
+      },
+      Addfidelite: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          valeur: {
+            type: 'string',
+          },
+          date_debut: {
+            type: 'Date',
+          },
+          date_fin: {
+            type: 'Date',
+          },
+          cummulable: {
+            type: 'string',
+          },
+          actif: {
+            type: 'boolean',
+          },
+          condition: {
+            type: 'ENUM',
+          }, 
+          user_code: {
+            type: 'string',
+          },
+          produit_code: {
+            type: 'string',
+          },
+          famille_code: {
+            type: 'string',
+          },
+          sousFamille_code: {
+            type: 'string',
+          },
+          gamme_code: {
+            type: 'string',
+          },
+          groupe_code: {
+            type: 'string',
+          },        
+        },
+      },
+      Addpromotion: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          libelle: {
+            type: 'string',
+          },
+          type: {
+            type: 'string',
+          },
+          valeur_min: {
+            type: 'float',
+          },
+          valeur_max: {
+            type: 'float',
+          },
+          qte_min: {
+            type: 'float',
+          },
+          qte_max: {
+            type: 'float',
+          },
+          date_debut: {
+            type: 'Date',
+          }, 
+          date_fin: {
+            type: 'Date',
+          },
+          remise: {
+            type: 'float',
+          },
+          actif: {
+            type: 'boolean',
+          },
+          famille_code: {
+            type: 'string',
+          },
+          sousFamille_code: {
+            type: 'string',
+          },
+          gamme_code: {
+            type: 'string',
+          },
+          groupe_code: {
+            type: 'string',
+          },
+          produit_code: {
+            type: 'string',
+          },
+          user_code: {
+            type: 'string',
+          },        
+        },
+      },
+      Addconditionfidelite: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          qte_min: {
+            type: 'float',
+          },
+          qte_max: {
+            type: 'float',
+          },
+          chiffre_min: {
+            type: 'float',
+          },
+          chiffre_max: {
+            type: 'float',
+          }, 
+          famille_code: {
+            type: 'string',
+          },
+          sousFamille_code: {
+            type: 'string',
+          },
+          gamme_code: {
+            type: 'string',
+          },
+          groupe_code: {
+            type: 'string',
+          }, 
+          fidelite_code: {
+            type: 'string',
+          },       
+        },
+      },
+      Addgratuite: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          date_debut: {
+            type: 'Date',
+          },
+          date_fin: {
+            type: 'Date',
+          },
+          cummulable: {
+            type: 'string',
+          },
+          quantite: {
+            type: 'float',
+          },
+          actif: {
+            type: 'boolean',
+          },
+          user_code: {
+            type: 'string',
+          },
+          produit_code: {
+            type: 'string',
+          },
+          famille_code: {
+            type: 'string',
+          },
+          sousFamille_code: {
+            type: 'string',
+          },
+          gamme_code: {
+            type: 'string',
+          },
+          groupe_code: {
+            type: 'string',
+          },        
+        },
+      },
+      Addconditiongratuite: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'string',
+          },
+          qte_min: {
+            type: 'float',
+          },
+          qte_max: {
+            type: 'float',
+          },
+          chiffre_min: {
+            type: 'float',
+          },
+          chiffre_max: {
+            type: 'float',
+          }, 
+          famille_code: {
+            type: 'string',
+          },
+          sousFamille_code: {
+            type: 'string',
+          },
+          gamme_code: {
+            type: 'string',
+          },
+          groupe_code: {
+            type: 'string',
+          }, 
+          produit_code: {
+            type: 'string',
+          },
+          gratuite_code: {
+            type: 'string',
+          },       
+        },
+      },
+      Adddetailachat: {
+        type: 'object',
+        properties: {
+          type_detailAchat: {
+            type: 'ENUM',
+          },
+          tva: {
+            type: 'float',
+          },
+          total_ht: {
+            type: 'float',
+          },
+          total_ttc: {
+            type: 'float',
+          },
+          total: {
+            type: 'float',
+          },
+          remise: {
+            type: 'float',
+          },
+          total_net_ht: {
+            type: 'float',
+          },
+          total_net: {
+            type: 'float',
+          },
+          date_creation: {
+            type: 'Date',
+          },
+          produit_code: {
+            type: 'string',
+          },
+          achat_code: {
+            type: 'string',
+          },
+          gratuite_code: {
+            type: 'string',
+          },      
+        },
+      },
+      Addstock: {
+        type: 'object',
+        properties: {
+          quantite: {
+            type: 'string',
+          },
+          produit_code: {
+            type: 'string',
+          },
+        },
+      },
+      Addcommentaire: {
+        type: 'object',
+        properties: {
+          contenu: {
+            type: 'string',
+          },
+          date_creation: {
+            type: 'Date',
+          },
+          isDeleted: {
+            type: 'boolean',
+          },
+          produit_code: {
+            type: 'string',
+          },
+          user_code: {
             type: 'string',
           },
         },

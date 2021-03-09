@@ -30,12 +30,14 @@
   PRIMARY KEY (id),
   FOREIGN KEY (role_code) references roles(code)
 );
+
 CREATE TABLE fournisseurs (
     id SERIAL,
     code varchar(255) unique not null ,
     libelle varchar(50)  NOT NULL ,
     PRIMARY KEY (id)
   );
+
   CREATE TABLE marques (
     id SERIAL,
     code varchar(255) UNIQUE NOT NULL,
@@ -76,10 +78,10 @@ CREATE TABLE gammes (
     id SERIAL,
     code varchar(255)  UNIQUE NOT NULL,
     libelle varchar(50)  NOT NULL ,
-    couleur varchar(50),
-    Prix_HT varchar(255),
-    Prix_Tlc varchar(50),
-    Tva varchar(50),
+    couleurSousFamille varchar(50),
+    prix_ht float,
+    prix_ttc float,
+    tva float,
     
     famille_code varchar(255)  NOT NULL ,
     PRIMARY KEY (id),
@@ -95,11 +97,11 @@ CREATE TABLE gammes (
     image varchar(255),
     collisage varchar(255)  NOT NULL ,
     ordre varchar(255),
-    Tva varchar(50),
-    prix_achat_ht varchar(50),
-    prix_achat_ttc varchar(50),
-    prix_vente_ht varchar(50),
-    prix_vente_ttc varchar(50)  NOT NULL ,
+    tva float,
+    prix_achat_ht float,
+    prix_achat_ttc float,
+    prix_vente_ht float,
+    prix_vente_ttc float NOT NULL ,
 
     famille_code varchar(255),
     gamme_code varchar(255),
@@ -114,19 +116,18 @@ CREATE TABLE gammes (
     FOREIGN KEY (gamme_code) references gammes(code)
 
   );
+
    CREATE TABLE groupes (
     id SERIAL,
     code varchar(255) unique not null,
 
     produit_code varchar(255)  NOT NULL ,
     PRIMARY KEY (id),
-    FOREIGN KEY(produit_code) references produits(code)
-    
+    FOREIGN KEY(produit_code) references produits(code)    
   );
    
 
-
-   CREATE TYPE type_achats AS ENUM ('retour', 'demandeRetour','commande','commandeV'); --achats
+  CREATE TYPE type_achats AS ENUM ('retour', 'demandeRetour','commande','commandeV'); --achats
 
 
   CREATE TABLE achats (
@@ -144,7 +145,7 @@ CREATE TABLE gammes (
     longitude_livraison varchar(50),
     latitude_livraison varchar(50),
     adresse_livraison varchar(50) NOT NULL ,
-    date_prevu_livraison date NOT NULL ,
+    date_prevue_livraison date NOT NULL ,
     commentaire varchar(250),
     annule bool NOT NULL ,
 
@@ -156,30 +157,29 @@ CREATE TABLE gammes (
     FOREIGN KEY(fournisseur_code) references fournisseurs(code)
   );
   
-   CREATE TYPE type_fidelites AS ENUM ('and', 'or'); --fidelites
+  CREATE TYPE type_fidelites AS ENUM ('and', 'or'); --fidelites
   
   CREATE TABLE fidelites (
     id SERIAL,
     code varchar(255) unique not null,
     valeur varchar(50),
-    gamme_code varchar(255)  NOT NULL ,
-    sousFamille_code varchar(255)  NOT NULL ,
-    famille_code varchar(255)  NOT NULL ,
-    groupe_code varchar(255)  NOT NULL ,
-
     date_debut date  NOT NULL ,
     date_fin date  NOT NULL ,
     cummulable varchar(50)  NOT NULL ,
     actif bool  NOT NULL ,
     condition type_fidelites  not null,
 
+    gamme_code varchar(255)  NOT NULL ,
+    sousFamille_code varchar(255)  NOT NULL ,
+    famille_code varchar(255)  NOT NULL ,
+    groupe_code varchar(255)  NOT NULL ,
     produit_code varchar(255)  NOT NULL ,
-
     user_code varchar(255),
+
     PRIMARY KEY (id),
     FOREIGN KEY(user_code) references users(code),
 
-   FOREIGN KEY(gamme_code) references gammes(code),
+    FOREIGN KEY(gamme_code) references gammes(code),
     FOREIGN KEY(famille_code) references familles(code),
     FOREIGN KEY(sousFamille_code) references sousfamilles(code),
     FOREIGN KEY(groupe_code) references groupes(code)
@@ -197,7 +197,7 @@ CREATE TABLE gammes (
     qte_max float,
     date_debut date  NOT NULL ,
     date_fin date  NOT NULL ,
-    remise varchar(50)  NOT NULL ,
+    remise float  NOT NULL ,
     actif bool  NOT NULL ,
 
     gamme_code varchar(255)  NOT NULL ,
@@ -207,6 +207,7 @@ CREATE TABLE gammes (
 
     produit_code varchar(255)NOT NULL,
     user_code varchar(255)  NOT NULL ,
+
     PRIMARY KEY (id),
     FOREIGN KEY(user_code) references users(code),
     FOREIGN KEY(produit_code) references produits(code),
@@ -225,6 +226,7 @@ CREATE TABLE gammes (
   CREATE TABLE conditionfidelites (
     id SERIAL,
     type varchar(50)  NOT NULL ,
+    code varchar(255) UNIQUE NOT NULL,
 
     qte_min float,
     qte_max float,
@@ -237,6 +239,7 @@ CREATE TABLE gammes (
     groupe_code varchar(255)  NOT NULL ,
 
     fidelite_code varchar(255),
+
     PRIMARY KEY (id),
     FOREIGN KEY(fidelite_code) references fidelites(code),
     FOREIGN KEY(gamme_code) references gammes(code),
@@ -263,6 +266,7 @@ CREATE TABLE gammes (
     sousFamille_code varchar(255)  NOT NULL ,
     famille_code varchar(255)  NOT NULL ,
     groupe_code varchar(255)  NOT NULL ,
+
     PRIMARY KEY (id),
     FOREIGN KEY(user_code) references users(code),
     FOREIGN KEY(produit_code) references produits(code),
@@ -282,14 +286,16 @@ CREATE TABLE gammes (
     qte_max float,
     chiffre_min float,
     chiffre_max float,
-
-        gamme_code varchar(255)  NOT NULL ,
+     
+    produit_code varchar(255)  NOT NULL ,
+    gamme_code varchar(255)  NOT NULL ,
     sousFamille_code varchar(255)  NOT NULL ,
     famille_code varchar(255)  NOT NULL ,
     groupe_code varchar(255)  NOT NULL ,
 
     gratuite_code varchar(255)  NOT NULL ,
-    produit_code varchar(255)  NOT NULL ,
+    
+
     PRIMARY KEY (id),
     FOREIGN KEY(gratuite_code) references gratuites(code),
     FOREIGN KEY(produit_code) references produits(code),
@@ -300,11 +306,11 @@ CREATE TABLE gammes (
 
   );
   
-   CREATE TYPE type_detailAchats AS ENUM ('achat', 'avoir','gratuite','demandeAvoir'); --type detail achats
+  CREATE TYPE type_detailAchats AS ENUM ('achat', 'avoir','gratuite','demandeAvoir'); --type detail achats
   
   
   CREATE TABLE detailachat (
-    id SERIAL,
+    id SERIAL, 
     quantite varchar(255)  NOT NULL ,
     type_detailAchat type_detailAchats  NOT NULL ,
     tva float,
@@ -319,6 +325,7 @@ CREATE TABLE gammes (
     produit_code varchar(255)  NOT NULL ,
     achat_code varchar(255)  NOT NULL ,
     gratuite_code varchar(255),
+
     PRIMARY KEY (id),
     FOREIGN KEY(produit_code) references produits(code),
     FOREIGN KEY(achat_code) references achats(code),
@@ -331,6 +338,7 @@ CREATE TABLE gammes (
     quantite float  NOT NULL ,
 
     produit_code varchar(255)  NOT NULL ,
+
     PRIMARY KEY (id),
     FOREIGN KEY(produit_code) references produits(code)
 
@@ -344,8 +352,10 @@ CREATE TABLE commentaires (
   contenu varchar(50),
   date_creation date,
   isDeleted bool ,
+
   produit_code varchar(50),
   user_code varchar(50),
+  
   PRIMARY KEY (id),
     FOREIGN KEY(produit_code) references produits(code),
     FOREIGN KEY(user_code) references users(code)
