@@ -145,7 +145,7 @@ CREATE TABLE gammes (
     longitude_livraison varchar(50),
     latitude_livraison varchar(50),
     adresse_livraison varchar(50) NOT NULL ,
-    date_prevue_livraison date NOT NULL ,
+    date_prevu_livraison date NOT NULL ,
     commentaire varchar(250),
     annule bool NOT NULL ,
 
@@ -309,7 +309,7 @@ CREATE TABLE gammes (
   CREATE TYPE type_detailAchats AS ENUM ('achat', 'avoir','gratuite','demandeAvoir'); --type detail achats
   
   
-  CREATE TABLE detailachat (
+  CREATE TABLE detailachats (
     id SERIAL, 
     quantite varchar(255)  NOT NULL ,
     type_detailAchat type_detailAchats  NOT NULL ,
